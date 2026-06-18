@@ -19,7 +19,12 @@ export default function App() {
   // Inicializamos a proficiência com 0.15 (15%), que representa a probabilidade inicial de domínio P(L0) no BKT ou lê do localStorage
   const [prof, setProf] = useState(() => {
     const saved = localStorage.getItem("its_relatividade_prof");
-    return saved ? JSON.parse(saved) : { 1: 0.15, 2: 0.15, 3: 0.15, 4: 0.15 };
+    if (saved) return JSON.parse(saved);
+    const initialProf = {};
+    CONCEPTS.forEach((c) => {
+      initialProf[c.id] = 0.15;
+    });
+    return initialProf;
   });
   const [activeNode, setActiveNode] = useState(() => {
     const saved = localStorage.getItem("its_relatividade_activeNode");
@@ -86,7 +91,11 @@ export default function App() {
       }
       keysToRemove.forEach((key) => localStorage.removeItem(key));
 
-      setProf({ 1: 0.15, 2: 0.15, 3: 0.15, 4: 0.15 });
+      const initialProf = {};
+      CONCEPTS.forEach((c) => {
+        initialProf[c.id] = 0.15;
+      });
+      setProf(initialProf);
       setActiveNode(1);
       setProblemIdx(0);
       setSelected(null);
@@ -132,7 +141,7 @@ export default function App() {
     }));
   }, []);
 
-  const concept = CONCEPTS.find((c) => c.id === activeNode);
+  const concept = CONCEPTS.find((c) => c.id === activeNode) || CONCEPTS[0];
   const problem = concept?.problems[problemIdx];
 
   function handleAnswer(optionIdx) {

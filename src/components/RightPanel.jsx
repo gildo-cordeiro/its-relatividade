@@ -8,7 +8,7 @@ const FORMULAS = [
 ];
 
 export default function RightPanel({ concepts, prof, activeNode, onSelectNode }) {
-  const totalPct = Math.round((Object.values(prof).reduce((a, b) => a + b, 0) / 4) * 100);
+  const totalPct = Math.round((Object.values(prof).reduce((a, b) => a + b, 0) / concepts.length) * 100);
 
   return (
     <aside className="right-panel">

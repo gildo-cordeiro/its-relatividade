@@ -7,8 +7,15 @@ const FORMULAS = [
   { sym: "E", label: "Energia de repouso", eq: "E₀ = mc²" },
 ];
 
-export default function RightPanel({ concepts, prof, activeNode, onSelectNode }) {
-  const totalPct = Math.round((Object.values(prof).reduce((a, b) => a + b, 0) / concepts.length) * 100);
+export default function RightPanel({
+  concepts,
+  prof,
+  activeNode,
+  onSelectNode,
+}) {
+  const totalPct = Math.round(
+    (Object.values(prof).reduce((a, b) => a + b, 0) / concepts.length) * 100,
+  );
 
   return (
     <aside className="right-panel">
@@ -16,9 +23,18 @@ export default function RightPanel({ concepts, prof, activeNode, onSelectNode })
       <div className="overall-card">
         <div className="overall-ring">
           <svg width="72" height="72" viewBox="0 0 72 72">
-            <circle cx="36" cy="36" r="30" fill="none" stroke="#E5E3FC" strokeWidth="7" />
             <circle
-              cx="36" cy="36" r="30"
+              cx="36"
+              cy="36"
+              r="30"
+              fill="none"
+              stroke="#E5E3FC"
+              strokeWidth="7"
+            />
+            <circle
+              cx="36"
+              cy="36"
+              r="30"
               fill="none"
               stroke={totalPct >= 70 ? "#1D9E75" : "#7F77DD"}
               strokeWidth="7"
@@ -26,7 +42,14 @@ export default function RightPanel({ concepts, prof, activeNode, onSelectNode })
               strokeLinecap="round"
               transform="rotate(-90 36 36)"
             />
-            <text x="36" y="40" textAnchor="middle" fontSize="15" fontWeight="500" fill={totalPct >= 70 ? "#0F6E56" : "#534AB7"}>
+            <text
+              x="36"
+              y="40"
+              textAnchor="middle"
+              fontSize="15"
+              fontWeight="500"
+              fill={totalPct >= 70 ? "#0F6E56" : "#534AB7"}
+            >
               {totalPct}%
             </text>
           </svg>
@@ -34,7 +57,8 @@ export default function RightPanel({ concepts, prof, activeNode, onSelectNode })
         <div className="overall-info">
           <div className="overall-title">Domínio total</div>
           <div className="overall-sub">
-            {Object.values(prof).filter((v) => v >= 0.7).length} de 4 nós dominados
+            {Object.values(prof).filter((v) => v >= 0.7).length} de 4 nós
+            dominados
           </div>
         </div>
       </div>
@@ -57,9 +81,28 @@ export default function RightPanel({ concepts, prof, activeNode, onSelectNode })
               >
                 <div className={`dag-icon dag-icon-${st}`}>
                   {st === "done" ? (
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
                   ) : st === "locked" ? (
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <rect x="3" y="11" width="18" height="11" rx="2" />
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
                   ) : (
                     <span className="dag-sym">{c.sym}</span>
                   )}
@@ -67,7 +110,9 @@ export default function RightPanel({ concepts, prof, activeNode, onSelectNode })
                 <div className="dag-info">
                   <div className="dag-title">{c.title}</div>
                   <div className="dag-sub">
-                    {c.prereqs.length ? `Requer nó ${c.prereqs.join(", ")}` : "Ponto de partida"}
+                    {c.prereqs.length
+                      ? `Requer nó ${c.prereqs.join(", ")}`
+                      : "Ponto de partida"}
                   </div>
                   <div className="dag-bar-wrap">
                     <div
@@ -76,7 +121,9 @@ export default function RightPanel({ concepts, prof, activeNode, onSelectNode })
                     />
                   </div>
                 </div>
-                <div className={`dag-pct ${st === "done" ? "dag-pct-done" : st === "active" ? "dag-pct-active" : "dag-pct-locked"}`}>
+                <div
+                  className={`dag-pct ${st === "done" ? "dag-pct-done" : st === "active" ? "dag-pct-active" : "dag-pct-locked"}`}
+                >
                   {p}%
                 </div>
               </div>
@@ -106,10 +153,25 @@ export default function RightPanel({ concepts, prof, activeNode, onSelectNode })
       <div className="rules-card">
         <div className="rules-title">Regras de proficiência</div>
         {[
-          { icon: "↑", label: "Acerto (1ª tentativa)", val: "+20%", cls: "rule-pos" },
+          {
+            icon: "↑",
+            label: "Acerto (1ª tentativa)",
+            val: "+20%",
+            cls: "rule-pos",
+          },
           { icon: "↓", label: "Erro na questão", val: "−10%", cls: "rule-neg" },
-          { icon: "↓", label: "Consulta ao tutor IA", val: "−10%", cls: "rule-neg" },
-          { icon: "→", label: "Critério de avanço", val: "≥ 70%", cls: "rule-info" },
+          {
+            icon: "↓",
+            label: "Consulta ao tutor IA",
+            val: "−10%",
+            cls: "rule-neg",
+          },
+          {
+            icon: "→",
+            label: "Critério de avanço",
+            val: "≥ 70%",
+            cls: "rule-info",
+          },
         ].map((r) => (
           <div key={r.label} className="rule-row">
             <span className="rule-label">{r.label}</span>

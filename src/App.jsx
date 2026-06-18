@@ -36,7 +36,9 @@ export default function App() {
   });
   const [selected, setSelected] = useState(() => {
     const saved = localStorage.getItem("its_relatividade_selected");
-    return saved !== null && saved !== "null" && saved !== "undefined" ? parseInt(saved, 10) : null;
+    return saved !== null && saved !== "null" && saved !== "undefined"
+      ? parseInt(saved, 10)
+      : null;
   });
   const [answered, setAnswered] = useState(() => {
     const saved = localStorage.getItem("its_relatividade_answered");
@@ -44,7 +46,9 @@ export default function App() {
   });
   const [feedback, setFeedback] = useState(() => {
     const saved = localStorage.getItem("its_relatividade_feedback");
-    return saved && saved !== "null" && saved !== "undefined" ? JSON.parse(saved) : null;
+    return saved && saved !== "null" && saved !== "undefined"
+      ? JSON.parse(saved)
+      : null;
   });
 
   useEffect(() => {
@@ -72,7 +76,11 @@ export default function App() {
   }, [feedback]);
 
   const handleReset = useCallback(() => {
-    if (window.confirm("Deseja realmente resetar todo o seu progresso? Isso limpará suas proficiências e voltará ao início.")) {
+    if (
+      window.confirm(
+        "Deseja realmente resetar todo o seu progresso? Isso limpará suas proficiências e voltará ao início.",
+      )
+    ) {
       // Remove do localStorage as variáveis de progresso
       localStorage.removeItem("its_relatividade_prof");
       localStorage.removeItem("its_relatividade_activeNode");
@@ -85,7 +93,11 @@ export default function App() {
       const keysToRemove = [];
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (key && (key.startsWith("its_relatividade_chat_") || key.startsWith("its_relatividade_penalty_"))) {
+        if (
+          key &&
+          (key.startsWith("its_relatividade_chat_") ||
+            key.startsWith("its_relatividade_penalty_"))
+        ) {
           keysToRemove.push(key);
         }
       }
@@ -109,23 +121,22 @@ export default function App() {
     setProf((prev) => {
       const prevL = prev[id];
       // Parâmetros clássicos do modelo BKT
-      const P_T = 0.20; // Probabilidade de transição de aprendizado
+      const P_T = 0.2; // Probabilidade de transição de aprendizado
       const P_G = 0.25; // Probabilidade de chute (guess) - 4 alternativas = 25%
-      const P_S = 0.10; // Probabilidade de deslize (slip) - 10%
+      const P_S = 0.1; // Probabilidade de deslize (slip) - 10%
 
       let P_L_cond;
       if (isCorrect) {
         // Teorema de Bayes aplicado ao acerto
-        P_L_cond = (prevL * (1 - P_S)) / (prevL * (1 - P_S) + (1 - prevL) * P_G);
+        P_L_cond =
+          (prevL * (1 - P_S)) / (prevL * (1 - P_S) + (1 - prevL) * P_G);
       } else {
         // Teorema de Bayes aplicado ao erro
         P_L_cond = (prevL * P_S) / (prevL * P_S + (1 - prevL) * (1 - P_G));
       }
 
       // Aplica a transição de aprendizado (no acerto há reforço pedagógico)
-      const nextL = isCorrect 
-        ? P_L_cond + (1 - P_L_cond) * P_T 
-        : P_L_cond;
+      const nextL = isCorrect ? P_L_cond + (1 - P_L_cond) * P_T : P_L_cond;
 
       return {
         ...prev,
@@ -137,7 +148,7 @@ export default function App() {
   const applyHintPenalty = useCallback((id) => {
     setProf((prev) => ({
       ...prev,
-      [id]: parseFloat(Math.max(0, prev[id] - 0.10).toFixed(3)),
+      [id]: parseFloat(Math.max(0, prev[id] - 0.1).toFixed(3)),
     }));
   }, []);
 
@@ -168,7 +179,7 @@ export default function App() {
       setProblemIdx(nextPidx);
     } else {
       const nextNode = CONCEPTS.find(
-        (c) => c.id > activeNode && isUnlocked(c.id, prof)
+        (c) => c.id > activeNode && isUnlocked(c.id, prof),
       );
       if (nextNode) {
         setActiveNode(nextNode.id);

@@ -1,5 +1,4 @@
 import GeminiChat from "./GeminiChat";
-import { scaleProficiency } from "../App";
 
 const OPTION_LABELS = ["A", "B", "C", "D"];
 
@@ -15,7 +14,7 @@ export default function LeftPanel({
   onNext,
   onHintPenalty,
 }) {
-  const pct = scaleProficiency(prof[concept.id]);
+  const pct = Math.round(prof[concept.id] * 100);
 
   return (
     <div className="left-panel">
@@ -33,7 +32,15 @@ export default function LeftPanel({
           >
             {pct}%
           </div>
-          <div className="prof-label">proficiência</div>
+          <div className="prof-label-wrap">
+            <span className="prof-label">proficiência</span>
+            <div className="bkt-info-tooltip">
+              <span className="tooltip-icon">i</span>
+              <div className="tooltip-text">
+                Calculado via <strong>BKT (Bayesian Knowledge Tracing)</strong>. O valor inicial de 15% é a probabilidade teórica de domínio antes dos testes. A cada resposta correta ou incorreta, o sistema atualiza cientificamente a sua chance de domínio.
+              </div>
+            </div>
+          </div>
           <div className="prof-bar-wrap">
             <div
               className={`prof-bar ${pct >= 70 ? "prof-bar-done" : "prof-bar-active"}`}

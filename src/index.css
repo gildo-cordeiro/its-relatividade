@@ -1018,3 +1018,96 @@ body {
     padding: 10px 4px;
   }
 }
+
+/* Tooltip explicativa do BKT */
+.prof-label-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+@media (max-width: 600px) {
+  .prof-label-wrap {
+    justify-content: flex-start;
+  }
+}
+
+.bkt-info-tooltip {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.tooltip-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--purple-50);
+  color: var(--purple-600);
+  font-size: 9px;
+  font-weight: bold;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--purple-200);
+  transition: all 0.15s ease;
+}
+
+.bkt-info-tooltip:hover .tooltip-icon {
+  background: var(--purple-600);
+  color: #fff;
+  border-color: var(--purple-600);
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 260px;
+  background-color: var(--purple-900);
+  color: #fff;
+  text-align: left;
+  border-radius: 8px;
+  padding: 10px 12px;
+  position: absolute;
+  z-index: 100;
+  bottom: 130%;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+  box-shadow: 0 4px 12px rgba(38, 33, 92, 0.25);
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: normal;
+  border: 1px solid var(--purple-400);
+}
+
+/* Indicador triangular do balão */
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 6px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--purple-900) transparent transparent transparent;
+}
+
+.bkt-info-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .tooltip-text {
+    right: auto;
+    left: -40px;
+  }
+  .tooltip-text::after {
+    right: auto;
+    left: 42px;
+  }
+}

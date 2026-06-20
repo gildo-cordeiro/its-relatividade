@@ -844,13 +844,31 @@ body {
   display: none;
 }
 
+/* Evita que fórmulas matemáticas gigantes quebrem a largura da página */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding: 4px 0;
+}
+.katex {
+  max-width: 100%;
+}
+
 @media (max-width: 768px) {
+  html,
+  body,
+  #root,
+  .app-root {
+    height: 100%;
+    overflow: hidden;
+  }
+
   .mobile-tabs-bar {
     display: flex;
     background: #fff;
     border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 10;
   }
 
@@ -859,7 +877,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 12px 6px;
     border: none;
     background: transparent;
     font-size: 13px;
@@ -880,6 +898,7 @@ body {
   .app-body {
     grid-template-columns: 1fr;
     min-height: 0;
+    height: 0; /* Força o flexbox a respeitar o limite de altura da tela */
   }
 
   .app-body.show-exercise .right-panel {
@@ -894,6 +913,7 @@ body {
   .right-panel {
     padding: 16px;
     overflow-y: auto;
+    height: 100%;
   }
 
   .left-panel {
@@ -911,7 +931,11 @@ body {
 
 @media (max-width: 600px) {
   .app-header {
-    padding: 10px 16px;
+    padding: 8px 12px;
+  }
+
+  .header-left {
+    gap: 8px;
   }
 
   .header-icon {
@@ -924,12 +948,9 @@ body {
     font-size: 14px;
   }
 
+  /* Oculta o subtítulo longo no celular para evitar colisões horizontais */
   .header-sub {
-    font-size: 9px;
-    max-width: 170px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: none;
   }
 
   .btn-reset {
@@ -943,6 +964,12 @@ body {
 
   .concept-header {
     gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .concept-meta {
+    flex: 1;
+    min-width: 150px;
   }
 
   .concept-badge {
@@ -956,7 +983,38 @@ body {
     font-size: 14px;
   }
 
+  .prof-display {
+    text-align: left;
+    width: 100%;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: unset;
+  }
+  
+  .prof-bar-wrap {
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .prof-label {
+    margin: 0;
+  }
+
   .prof-pct {
-    font-size: 20px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-tab-btn svg {
+    display: none; /* Remove os ícones em telas muito estreitas para o texto caber */
+  }
+  
+  .mobile-tab-btn {
+    font-size: 12px;
+    padding: 10px 4px;
   }
 }

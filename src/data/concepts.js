@@ -55,8 +55,8 @@ export const CONCEPTS = [
             misconception: null,
           },
           {
-            text: "Because it was created before airplanes",
-            misconception: "english_distractor",
+            text: "Porque foi criada antes dos aviões",
+            misconception: "airplane_distractor",
           },
           {
             text: "Porque não inclui equações diferenciais",

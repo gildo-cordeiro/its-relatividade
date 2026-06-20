@@ -1,3 +1,4 @@
+import { useState } from "react";
 import GeminiChat from "./GeminiChat";
 
 const OPTION_LABELS = ["A", "B", "C", "D"];
@@ -14,6 +15,15 @@ export default function LeftPanel({
   onNext,
   onHintPenalty,
 }) {
+  const [tutorTrigger, setTutorTrigger] = useState(null);
+
+  const handleExplainWithError = () => {
+    setTutorTrigger(Date.now());
+    setTimeout(() => {
+      document.querySelector(".gemini-chat")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   const pct = Math.round(prof[concept.id] * 100);
 
   return (
@@ -162,22 +172,41 @@ export default function LeftPanel({
             )}
           </div>
           <p className="feedback-text">{feedback.msg}</p>
-          <button className="btn-next" onClick={onNext}>
-            {problemIdx + 1 < concept.problems.length
-              ? "Próximo problema"
-              : "Próximo nó"}
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </button>
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "12px" }}>
+            {feedback.type === "err" && (
+              <button className="btn-explain-error" onClick={handleExplainWithError}>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  style={{ marginRight: "6px" }}
+                >
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                Explicar meu erro com IA
+              </button>
+            )}
+            <button className="btn-next" onClick={onNext}>
+              {problemIdx + 1 < concept.problems.length
+                ? "Próximo problema"
+                : "Próximo nó"}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                style={{ marginLeft: "4px" }}
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </div>
         </div>
       )}
 
@@ -187,6 +216,7 @@ export default function LeftPanel({
         problemIdx={problemIdx}
         selectedOptionIdx={selected}
         onPenalty={onHintPenalty}
+        tutorTrigger={tutorTrigger}
       />
     </div>
   );

@@ -11,6 +11,7 @@ export default function GeminiChat({
   problemIdx,
   selectedOptionIdx,
   onPenalty,
+  tutorTrigger,
 }) {
   const chatKey = `its_relatividade_chat_${concept.id}_${problemIdx}`;
   const penaltyKey = `its_relatividade_penalty_${concept.id}_${problemIdx}`;
@@ -61,10 +62,20 @@ export default function GeminiChat({
     localStorage.setItem(penaltyKey, String(penaltyApplied));
   }, [penaltyApplied, penaltyKey]);
 
-  async function send() {
-    if (!input.trim() || loading) return;
-    const userMsg = input.trim();
-    setInput("");
+  useEffect(() => {
+    if (tutorTrigger) {
+      send("Pode me explicar por que a alternativa que escolhi está incorreta e qual foi o meu erro?");
+    }
+  }, [tutorTrigger]);
+
+  async function send(customMsg) {
+    if (loading) return;
+    const userMsg = typeof customMsg === "string" ? customMsg : input.trim();
+    if (!userMsg) return;
+
+    if (typeof customMsg !== "string") {
+      setInput("");
+    }
 
     if (!penaltyApplied) {
       onPenalty();

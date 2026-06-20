@@ -1,4 +1,5 @@
 import GeminiChat from "./GeminiChat";
+import { scaleProficiency } from "../App";
 
 const OPTION_LABELS = ["A", "B", "C", "D"];
 
@@ -14,7 +15,7 @@ export default function LeftPanel({
   onNext,
   onHintPenalty,
 }) {
-  const pct = Math.round(prof[concept.id] * 100);
+  const pct = scaleProficiency(prof[concept.id]);
 
   return (
     <div className="left-panel">

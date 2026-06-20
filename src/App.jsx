@@ -15,6 +15,14 @@ export function nodeStatus(id, prof) {
   return "locked";
 }
 
+export function scaleProficiency(val) {
+  if (val <= 0.15) return 0;
+  if (val <= 0.7) {
+    return Math.round(((val - 0.15) / 0.55) * 70);
+  }
+  return Math.round(70 + ((val - 0.7) / 0.3) * 30);
+}
+
 export default function App() {
   // Inicializamos a proficiência com 0.15 (15%), que representa a probabilidade inicial de domínio P(L0) no BKT ou lê do localStorage
   const [prof, setProf] = useState(() => {

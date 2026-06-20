@@ -1,4 +1,4 @@
-import { nodeStatus } from "../App";
+import { nodeStatus, scaleProficiency } from "../App";
 
 const FORMULAS = [
   { sym: "γ", label: "Fator de Lorentz", eq: "γ = 1 / √(1 − v²/c²)" },
@@ -14,7 +14,7 @@ export default function RightPanel({
   onSelectNode,
 }) {
   const totalPct = Math.round(
-    (Object.values(prof).reduce((a, b) => a + b, 0) / concepts.length) * 100,
+    Object.values(prof).reduce((sum, val) => sum + scaleProficiency(val), 0) / concepts.length,
   );
 
   return (
@@ -68,7 +68,7 @@ export default function RightPanel({
         {concepts.map((c, i) => {
           const st = nodeStatus(c.id, prof);
           const active = activeNode === c.id;
-          const p = Math.round(prof[c.id] * 100);
+          const p = scaleProficiency(prof[c.id]);
           return (
             <div key={c.id}>
               <div

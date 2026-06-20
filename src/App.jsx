@@ -1,8 +1,10 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Header from "./components/Header";
 import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";
 import { CONCEPTS } from "./data/concepts";
+import { useLocalStorage } from "./hooks/useLocalStorage";
+import { calculateNextBKT, getInitialProficiency } from "./utils/bkt";
 
 function isUnlocked(id, prof) {
   const c = CONCEPTS.find((x) => x.id === id);
@@ -16,65 +18,13 @@ export function nodeStatus(id, prof) {
 }
 
 export default function App() {
-  // Inicializamos a proficiência com 0.15 (15%), que representa a probabilidade inicial de domínio P(L0) no BKT ou lê do localStorage
-  const [prof, setProf] = useState(() => {
-    const saved = localStorage.getItem("its_relatividade_prof");
-    if (saved) return JSON.parse(saved);
-    const initialProf = {};
-    CONCEPTS.forEach((c) => {
-      initialProf[c.id] = 0.15;
-    });
-    return initialProf;
-  });
-  const [activeNode, setActiveNode] = useState(() => {
-    const saved = localStorage.getItem("its_relatividade_activeNode");
-    return saved ? parseInt(saved, 10) : 1;
-  });
-  const [problemIdx, setProblemIdx] = useState(() => {
-    const saved = localStorage.getItem("its_relatividade_problemIdx");
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  const [selected, setSelected] = useState(() => {
-    const saved = localStorage.getItem("its_relatividade_selected");
-    return saved !== null && saved !== "null" && saved !== "undefined"
-      ? parseInt(saved, 10)
-      : null;
-  });
-  const [answered, setAnswered] = useState(() => {
-    const saved = localStorage.getItem("its_relatividade_answered");
-    return saved === "true";
-  });
-  const [feedback, setFeedback] = useState(() => {
-    const saved = localStorage.getItem("its_relatividade_feedback");
-    return saved && saved !== "null" && saved !== "undefined"
-      ? JSON.parse(saved)
-      : null;
-  });
+  const [prof, setProf] = useLocalStorage("its_relatividade_prof", () => getInitialProficiency(CONCEPTS));
+  const [activeNode, setActiveNode] = useLocalStorage("its_relatividade_activeNode", 1);
+  const [problemIdx, setProblemIdx] = useLocalStorage("its_relatividade_problemIdx", 0);
+  const [selected, setSelected] = useLocalStorage("its_relatividade_selected", null);
+  const [answered, setAnswered] = useLocalStorage("its_relatividade_answered", false);
+  const [feedback, setFeedback] = useLocalStorage("its_relatividade_feedback", null);
   const [activeTab, setActiveTab] = useState("exercise");
-
-  useEffect(() => {
-    localStorage.setItem("its_relatividade_prof", JSON.stringify(prof));
-  }, [prof]);
-
-  useEffect(() => {
-    localStorage.setItem("its_relatividade_activeNode", activeNode.toString());
-  }, [activeNode]);
-
-  useEffect(() => {
-    localStorage.setItem("its_relatividade_problemIdx", problemIdx.toString());
-  }, [problemIdx]);
-
-  useEffect(() => {
-    localStorage.setItem("its_relatividade_selected", String(selected));
-  }, [selected]);
-
-  useEffect(() => {
-    localStorage.setItem("its_relatividade_answered", String(answered));
-  }, [answered]);
-
-  useEffect(() => {
-    localStorage.setItem("its_relatividade_feedback", JSON.stringify(feedback));
-  }, [feedback]);
 
   const handleReset = useCallback(() => {
     if (
@@ -104,54 +54,33 @@ export default function App() {
       }
       keysToRemove.forEach((key) => localStorage.removeItem(key));
 
-      const initialProf = {};
-      CONCEPTS.forEach((c) => {
-        initialProf[c.id] = 0.15;
-      });
-      setProf(initialProf);
+      setProf(getInitialProficiency(CONCEPTS));
       setActiveNode(1);
       setProblemIdx(0);
       setSelected(null);
       setAnswered(false);
       setFeedback(null);
     }
-  }, []);
+  }, [setProf, setActiveNode, setProblemIdx, setSelected, setAnswered, setFeedback]);
 
   // Algoritmo Bayesian Knowledge Tracing (BKT) para atualizar o estado cognitivo do estudante
   const updateProfBKT = useCallback((id, isCorrect) => {
     setProf((prev) => {
       const prevL = prev[id];
-      // Parâmetros clássicos do modelo BKT
-      const P_T = 0.2; // Probabilidade de transição de aprendizado
-      const P_G = 0.25; // Probabilidade de chute (guess) - 4 alternativas = 25%
-      const P_S = 0.1; // Probabilidade de deslize (slip) - 10%
-
-      let P_L_cond;
-      if (isCorrect) {
-        // Teorema de Bayes aplicado ao acerto
-        P_L_cond =
-          (prevL * (1 - P_S)) / (prevL * (1 - P_S) + (1 - prevL) * P_G);
-      } else {
-        // Teorema de Bayes aplicado ao erro
-        P_L_cond = (prevL * P_S) / (prevL * P_S + (1 - prevL) * (1 - P_G));
-      }
-
-      // Aplica a transição de aprendizado (no acerto há reforço pedagógico)
-      const nextL = isCorrect ? P_L_cond + (1 - P_L_cond) * P_T : P_L_cond;
-
+      const nextL = calculateNextBKT(prevL, isCorrect);
       return {
         ...prev,
-        [id]: parseFloat(Math.max(0, Math.min(1, nextL)).toFixed(3)),
+        [id]: nextL,
       };
     });
-  }, []);
+  }, [setProf]);
 
   const applyHintPenalty = useCallback((id) => {
     setProf((prev) => ({
       ...prev,
       [id]: parseFloat(Math.max(0, prev[id] - 0.1).toFixed(3)),
     }));
-  }, []);
+  }, [setProf]);
 
   const concept = CONCEPTS.find((c) => c.id === activeNode) || CONCEPTS[0];
   const problem = concept?.problems[problemIdx];

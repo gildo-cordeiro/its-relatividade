@@ -1071,7 +1071,7 @@ body {
   padding: 10px 12px;
   position: absolute;
   z-index: 100;
-  bottom: 130%;
+  top: 130%;
   right: 0;
   opacity: 0;
   transition: opacity 0.2s, visibility 0.2s;
@@ -1088,12 +1088,12 @@ body {
 .tooltip-text::after {
   content: "";
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   right: 6px;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: var(--purple-900) transparent transparent transparent;
+  border-color: transparent transparent var(--purple-900) transparent;
 }
 
 .bkt-info-tooltip:hover .tooltip-text {

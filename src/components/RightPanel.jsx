@@ -1,10 +1,14 @@
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import { nodeStatus } from "../App";
 
 const FORMULAS = [
-  { sym: "γ", label: "Fator de Lorentz", eq: "γ = 1 / √(1 − v²/c²)" },
-  { sym: "Δt", label: "Dilatação temporal", eq: "Δt = γ · τ" },
-  { sym: "L", label: "Contração espacial", eq: "L = L₀ / γ" },
-  { sym: "E", label: "Energia de repouso", eq: "E₀ = mc²" },
+  { sym: "γ", label: "Fator de Lorentz", eq: "$γ = 1 / \\sqrt{1 − v²/c²}$" },
+  { sym: "Δt", label: "Dilatação temporal", eq: "$Δt = γ · τ$" },
+  { sym: "L", label: "Contração espacial", eq: "$L = L₀ / γ$" },
+  { sym: "E", label: "Energia de repouso", eq: "$E₀ = mc²$" },
 ];
 
 export default function RightPanel({
@@ -144,7 +148,11 @@ export default function RightPanel({
             <div className="formula-sym">{f.sym}</div>
             <div className="formula-info">
               <div className="formula-label">{f.label}</div>
-              <code className="formula-eq">{f.eq}</code>
+              <div className="formula-eq">
+                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                  {f.eq}
+                </ReactMarkdown>
+              </div>
             </div>
           </div>
         ))}

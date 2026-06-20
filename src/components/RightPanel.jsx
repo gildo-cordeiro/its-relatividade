@@ -115,7 +115,7 @@ export default function RightPanel({
                   <div className="dag-title">{c.title}</div>
                   <div className="dag-sub">
                     {c.prereqs.length
-                      ? `Requer nó ${c.prereqs.join(", ")}`
+                      ? `Requer ${c.prereqs.map(prereqId => concepts.find(con => con.id === prereqId)?.title).join(", ")}`
                       : "Ponto de partida"}
                   </div>
                   <div className="dag-bar-wrap">

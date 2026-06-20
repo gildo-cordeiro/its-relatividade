@@ -51,13 +51,10 @@ body {
   line-height: 1.5;
 }
 
-/* ─── Layout ─────────────────────────────────────── */
 .app-root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
 .app-header {
@@ -841,11 +838,6 @@ body {
   transform: scale(0.97);
 }
 
-/* ─── Responsividade / Mobile ─────────────────────── */
-.mobile-tabs-bar {
-  display: none;
-}
-
 /* Evita que fórmulas matemáticas gigantes quebrem a largura da página */
 .katex-display {
   overflow-x: auto;
@@ -855,179 +847,6 @@ body {
 }
 .katex {
   max-width: 100%;
-}
-
-@media (max-width: 768px) {
-  html,
-  body,
-  #root,
-  .app-root {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .mobile-tabs-bar {
-    display: flex;
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    z-index: 10;
-  }
-
-  .mobile-tab-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 6px;
-    border: none;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.15s ease;
-    font-family: inherit;
-  }
-
-  .mobile-tab-btn.active {
-    color: var(--purple-600);
-    border-bottom-color: var(--purple-600);
-    background: var(--purple-50);
-  }
-
-  .app-header {
-    padding: 10px 16px;
-  }
-
-  .header-sub,
-  .header-badge {
-    display: none;
-  }
-
-  .app-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .app-body.show-exercise .right-panel {
-    display: none;
-  }
-
-  .app-body.show-progress .left-panel {
-    display: none;
-  }
-
-  .left-panel,
-  .right-panel {
-    padding: 16px;
-    overflow-y: auto;
-    height: 100%;
-  }
-
-  .left-panel {
-    border-right: none;
-  }
-
-  .right-panel {
-    border-left: none;
-  }
-
-  .chat-messages {
-    max-height: 240px;
-  }
-}
-
-@media (max-width: 600px) {
-  .app-header {
-    padding: 8px 12px;
-  }
-
-  .header-left {
-    gap: 8px;
-  }
-
-  .header-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-  }
-
-  .header-title {
-    font-size: 14px;
-  }
-
-  /* Oculta o subtítulo longo no celular para evitar colisões horizontais */
-  .header-sub {
-    display: none;
-  }
-
-  .btn-reset {
-    padding: 5px 8px;
-    font-size: 10px;
-  }
-
-  .header-badge {
-    display: none;
-  }
-
-  .concept-header {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  
-  .concept-meta {
-    flex: 1;
-    min-width: 150px;
-  }
-
-  .concept-badge {
-    width: 38px;
-    height: 38px;
-    font-size: 16px;
-    border-radius: 8px;
-  }
-
-  .meta-title {
-    font-size: 14px;
-  }
-
-  .prof-display {
-    text-align: left;
-    width: 100%;
-    margin-top: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: unset;
-  }
-  
-  .prof-bar-wrap {
-    flex: 1;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  .prof-label {
-    margin: 0;
-  }
-
-  .prof-pct {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .mobile-tab-btn svg {
-    display: none; /* Remove os ícones em telas muito estreitas para o texto caber */
-  }
-  
-  .mobile-tab-btn {
-    font-size: 12px;
-    padding: 10px 4px;
-  }
 }
 
 /* Tooltip explicativa do BKT */

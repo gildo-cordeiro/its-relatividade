@@ -907,7 +907,8 @@ body {
   }
 
   .app-body {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     min-height: 0;
   }
 

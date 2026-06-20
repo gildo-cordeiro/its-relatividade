@@ -164,14 +164,14 @@ export default function RightPanel({
           {
             icon: "↑",
             label: "Acerto (1ª tentativa)",
-            val: "+20%",
+            val: "Aprox. +20%",
             cls: "rule-pos",
           },
-          { icon: "↓", label: "Erro na questão", val: "−10%", cls: "rule-neg" },
+          { icon: "↓", label: "Erro na questão", val: "Aprox. −10%", cls: "rule-neg" },
           {
             icon: "↓",
             label: "Consulta ao tutor IA",
-            val: "−10%",
+            val: "−10% (Fixo)",
             cls: "rule-neg",
           },
           {

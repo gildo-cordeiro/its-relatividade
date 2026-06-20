@@ -598,8 +598,7 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 }
-.overall-info {
-}
+
 .overall-title {
   font-size: 14px;
   font-weight: 600;

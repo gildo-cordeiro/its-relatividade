@@ -50,6 +50,7 @@ export default function App() {
       ? JSON.parse(saved)
       : null;
   });
+  const [activeTab, setActiveTab] = useState("exercise");
 
   useEffect(() => {
     localStorage.setItem("its_relatividade_prof", JSON.stringify(prof));
@@ -207,7 +208,45 @@ export default function App() {
   return (
     <div className="app-root">
       <Header onReset={handleReset} />
-      <div className="app-body">
+      
+      <div className="mobile-tabs-bar">
+        <button
+          className={`mobile-tab-btn ${activeTab === "exercise" ? "active" : ""}`}
+          onClick={() => setActiveTab("exercise")}
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            style={{ marginRight: "6px" }}
+          >
+            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg>
+          Exercício & Tutor
+        </button>
+        <button
+          className={`mobile-tab-btn ${activeTab === "progress" ? "active" : ""}`}
+          onClick={() => setActiveTab("progress")}
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            style={{ marginRight: "6px" }}
+          >
+            <path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z" />
+          </svg>
+          Mapa & Fórmulas
+        </button>
+      </div>
+
+      <div className={`app-body show-${activeTab}`}>
         <LeftPanel
           concept={concept}
           problem={problem}

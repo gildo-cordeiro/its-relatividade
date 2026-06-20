@@ -838,3 +838,125 @@ body {
 .btn-reset:active {
   transform: scale(0.97);
 }
+
+/* ─── Responsividade / Mobile ─────────────────────── */
+.mobile-tabs-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-tabs-bar {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .mobile-tab-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+
+  .mobile-tab-btn.active {
+    color: var(--purple-600);
+    border-bottom-color: var(--purple-600);
+    background: var(--purple-50);
+  }
+
+  .app-body {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .app-body.show-exercise .right-panel {
+    display: none;
+  }
+
+  .app-body.show-progress .left-panel {
+    display: none;
+  }
+
+  .left-panel,
+  .right-panel {
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .left-panel {
+    border-right: none;
+  }
+
+  .right-panel {
+    border-left: none;
+  }
+
+  .chat-messages {
+    max-height: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 10px 16px;
+  }
+
+  .header-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .header-title {
+    font-size: 14px;
+  }
+
+  .header-sub {
+    font-size: 9px;
+    max-width: 170px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .btn-reset {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  .header-badge {
+    display: none;
+  }
+
+  .concept-header {
+    gap: 10px;
+  }
+
+  .concept-badge {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+
+  .meta-title {
+    font-size: 14px;
+  }
+
+  .prof-pct {
+    font-size: 20px;
+  }
+}

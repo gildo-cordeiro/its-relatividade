@@ -55,7 +55,9 @@ body {
 .app-root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 .app-header {
@@ -895,10 +897,18 @@ body {
     background: var(--purple-50);
   }
 
+  .app-header {
+    padding: 10px 16px;
+  }
+
+  .header-sub,
+  .header-badge {
+    display: none;
+  }
+
   .app-body {
     grid-template-columns: 1fr;
     min-height: 0;
-    height: 0; /* Força o flexbox a respeitar o limite de altura da tela */
   }
 
   .app-body.show-exercise .right-panel {

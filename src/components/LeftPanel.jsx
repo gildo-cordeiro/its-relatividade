@@ -64,7 +64,11 @@ export default function LeftPanel({
         </div>
       </div>
 
-      <div className="desc-strip">{concept.desc}</div>
+      <div className="desc-strip">
+        <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+          {concept.desc}
+        </ReactMarkdown>
+      </div>
 
       <div className="problem-card">
         <div className="problem-eyebrow">
@@ -82,7 +86,11 @@ export default function LeftPanel({
           </svg>
           Problema {problemIdx + 1} de {concept.problems.length}
         </div>
-        <p className="problem-text">{problem.q}</p>
+        <div className="problem-text">
+          <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+            {problem.q}
+          </ReactMarkdown>
+        </div>
       </div>
 
       <div className="options-list">
@@ -103,7 +111,9 @@ export default function LeftPanel({
             >
               <span className="option-label">{OPTION_LABELS[i]}</span>
               <span className="option-text">
-                {typeof opt === "object" ? opt.text : opt}
+                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                  {typeof opt === "object" ? opt.text : opt}
+                </ReactMarkdown>
               </span>
               {answered && i === problem.correct && (
                 <svg
@@ -175,7 +185,11 @@ export default function LeftPanel({
               </>
             )}
           </div>
-          <p className="feedback-text">{feedback.msg}</p>
+          <p className="feedback-text">
+            <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+              {feedback.msg}
+            </ReactMarkdown>
+          </p>
           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "12px" }}>
             {feedback.type === "err" && (
               <button className="btn-explain-error" onClick={handleExplainWithError}>

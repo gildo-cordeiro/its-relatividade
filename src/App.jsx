@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Header from "./components/Header";
 import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";
@@ -24,6 +24,15 @@ export default function App() {
   const [selected, setSelected] = useLocalStorage("its_relatividade_selected", null);
   const [answered, setAnswered] = useLocalStorage("its_relatividade_answered", false);
   const [feedback, setFeedback] = useLocalStorage("its_relatividade_feedback", null);
+  const [darkMode, setDarkMode] = useLocalStorage("its_relatividade_darkMode", false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark-mode");
+    } else {
+      document.documentElement.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
 
   const handleReset = useCallback(() => {
     if (
@@ -135,7 +144,7 @@ export default function App() {
 
   return (
     <div className="app-root">
-      <Header onReset={handleReset} />
+      <Header onReset={handleReset} darkMode={darkMode} onToggleDarkMode={() => setDarkMode(!darkMode)} />
       <div className="app-body">
         <LeftPanel
           concept={concept}

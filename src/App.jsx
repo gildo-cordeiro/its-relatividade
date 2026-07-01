@@ -157,6 +157,7 @@ export default function App() {
           onAnswer={handleAnswer}
           onNext={next}
           onHintPenalty={handleHintPenalty}
+          totalNodes={CONCEPTS.length}
         />
         <RightPanel
           concepts={CONCEPTS}

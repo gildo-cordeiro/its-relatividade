@@ -18,6 +18,7 @@ export default function LeftPanel({
   onAnswer,
   onNext,
   onHintPenalty,
+  totalNodes = 4,
 }) {
   const [tutorTrigger, setTutorTrigger] = useState(null);
 
@@ -37,7 +38,7 @@ export default function LeftPanel({
           {concept.sym}
         </div>
         <div className="concept-meta">
-          <div className="meta-label">Nó {concept.id} de 4</div>
+          <div className="meta-label">Nó {concept.id} de {totalNodes}</div>
           <div className="meta-title">{concept.full}</div>
         </div>
         <div className="prof-display">
@@ -51,7 +52,7 @@ export default function LeftPanel({
             <div className="bkt-info-tooltip">
               <span className="tooltip-icon">i</span>
               <div className="tooltip-text">
-                Calculado via <strong>BKT (Bayesian Knowledge Tracing)</strong>. O valor inicial de 15% é a probabilidade teórica de domínio antes dos testes. A cada resposta correta ou incorreta, o sistema atualiza cientificamente a sua chance de domínio.
+                Sua proficiência é calculada em tempo real com base no seu histórico de acertos, erros e consultas ao tutor IA. A estimativa começa em 15% (probabilidade inicial) e aumenta com acertos ou diminui com erros e dicas. Alcance 70% para dominar este nó e liberar os próximos tópicos.
               </div>
             </div>
           </div>

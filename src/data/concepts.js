@@ -195,12 +195,196 @@ export const CONCEPTS = [
     ],
   },
   {
+    id: 5,
+    sym: "⊕",
+    title: "Adição de Velocidades",
+    full: "Adição relativística de velocidades",
+    desc: "A relatividade impõe que nada ultrapasse c. A soma de velocidades é dada por: u = (v + u') / (1 + vu'/c²).",
+    prereqs: [3],
+    problems: [
+      {
+        q: "Uma nave espacial se afasta da Terra a 0,8c e lança uma sonda para a frente com velocidade de 0,6c em relação à nave. Qual a velocidade da sonda medida por um observador na Terra?",
+        options: [
+          { text: "1,40c", misconception: "classical_velocity_addition" },
+          { text: "0,95c", misconception: null },
+          { text: "0,80c", misconception: "no_velocity_addition" },
+          { text: "0,98c", misconception: "incorrect_math_addition" },
+        ],
+        correct: 1,
+        explanation:
+          "Usando a fórmula de adição relativística: $u = \\frac{v + u'}{1 + vu'/c^2} = \\frac{0,8c + 0,6c}{1 + 0,8 \\times 0,6} = \\frac{1,4c}{1 + 0,48} = \\frac{1,4c}{1,48} \\approx 0,946c$ (aproximadamente $0,95c$).",
+      },
+      {
+        q: "Duas naves viajam em rota de colisão frontal direta, cada uma a 0,9c em relação a uma estação espacial central. Qual é a velocidade de aproximação de uma nave em relação à outra?",
+        options: [
+          { text: "1,80c", misconception: "classical_velocity_addition" },
+          { text: "0,99c", misconception: null },
+          { text: "0,90c", misconception: "no_velocity_addition" },
+          { text: "1,00c (exatamente c)", misconception: "light_speed_limit_incorrect" },
+        ],
+        correct: 1,
+        explanation:
+          "No referencial de uma das naves, a outra vem com velocidade dada pela adição relativística: $u = \\frac{v + u'}{1 + vu'/c^2} = \\frac{0,9c + 0,9c}{1 + 0,9 \\times 0,9} = \\frac{1,8c}{1 + 0,81} = \\frac{1,8c}{1,81} \\approx 0,994c$.",
+      },
+      {
+        q: "Se uma lanterna em uma nave a 0,99c emite um feixe de luz para a frente, qual a velocidade da luz em relação a um observador parado na plataforma de lançamento?",
+        options: [
+          { text: "1,99c", misconception: "classical_velocity_addition" },
+          { text: "c", misconception: null },
+          { text: "0,01c", misconception: "incorrect_subtraction" },
+          { text: "0,99c", misconception: "incorrect_frame_speed" },
+        ],
+        correct: 1,
+        explanation:
+          "Embora a fórmula de adição dê $u = \\frac{0,99c + c}{1 + 0,99 \\times 1} = \\frac{1,99c}{1,99} = c$, sabemos diretamente do 2º Postulado que a velocidade da luz é sempre $c$ em qualquer referencial inercial.",
+      },
+    ],
+  },
+  {
+    id: 6,
+    sym: "fD",
+    title: "Efeito Doppler",
+    full: "Efeito Doppler Relativístico",
+    desc: "A frequência observada da luz muda devido ao movimento relativo da fonte, combinando efeito clássico e dilatação do tempo: f_obs = f₀ · √((1 ∓ v/c) / (1 ± v/c)).",
+    prereqs: [2],
+    problems: [
+      {
+        q: "Uma galáxia distante está se afastando da Terra a v = 0,6c. Se ela emite luz com frequência própria $f_0$, qual a frequência $f_{obs}$ medida na Terra?",
+        options: [
+          { text: "0,50 f₀", misconception: null },
+          { text: "0,80 f₀", misconception: "classical_doppler_subtraction" },
+          { text: "2,00 f₀", misconception: "doppler_blueshift_confusion" },
+          { text: "1,25 f₀", misconception: "only_lorentz_time_dilation" },
+        ],
+        correct: 0,
+        explanation:
+          "Para afastamento, a frequência diminui (redshift): $f_{obs} = f_0 \\sqrt{\\frac{1 - v/c}{1 + v/c}} = f_0 \\sqrt{\\frac{1 - 0,6}{1 + 0,6}} = f_0 \\sqrt{\\frac{0,4}{1,6}} = f_0 \\sqrt{0,25} = 0,5 f_0$.",
+      },
+      {
+        q: "O desvio para o vermelho (redshift) relativístico de galáxias distantes é uma evidência cosmológica fundamental de qual fenômeno?",
+        options: [
+          { text: "Que o universo está em expansão acelerada", misconception: null },
+          { text: "Que as estrelas estão esfriando rapidamente", misconception: "star_cooling_misconception" },
+          { text: "Que a luz perde energia ao colidir com poeira cósmica", misconception: "tired_light_hypothesis" },
+          { text: "Que o tempo passa mais rápido no espaço profundo", misconception: "time_dilation_misinterpretation" },
+        ],
+        correct: 0,
+        explanation:
+          "O desvio para o vermelho relativístico sistemático indica que as galáxias estão se afastando radialmente de nós, o que comprova a expansão contínua do próprio tecido do espaço-tempo.",
+      },
+      {
+        q: "Se uma nave se aproxima rapidamente da Terra com velocidade v, qual é a expressão correta da frequência observada $f_{obs}$ (desvio para o azul - blueshift)?",
+        options: [
+          { text: "$f_{obs} = f_0 \\sqrt{\\frac{1 + v/c}{1 - v/c}}$", misconception: null },
+          { text: "$f_{obs} = f_0 \\sqrt{\\frac{1 - v/c}{1 + v/c}}$", misconception: "doppler_redshift_formula" },
+          { text: "$f_{obs} = f_0 (1 + v/c)$", misconception: "classical_doppler_approximation" },
+          { text: "$f_{obs} = f_0 / \\gamma$", misconception: "only_lorentz_factor" },
+        ],
+        correct: 0,
+        explanation:
+          "No caso de aproximação, a frequência aumenta (blueshift), portanto os sinais dentro da raiz se invertem, dando a fórmula: $f_{obs} = f_0 \\sqrt{\\frac{1 + v/c}{1 - v/c}}$.",
+      },
+    ],
+  },
+  {
+    id: 7,
+    sym: "s²",
+    title: "Espaço-Tempo",
+    full: "Intervalo Espaço-Tempo",
+    desc: "A distância quadridimensional invariante entre dois eventos no espaço-tempo, mantendo o mesmo valor em todos os referenciais: Δs² = (cΔt)² − Δx².",
+    prereqs: [2, 3],
+    problems: [
+      {
+        q: "Dois eventos ocorrem no mesmo local físico no referencial A (Δx_A = 0), separados por Δt_A = 4 s. No referencial B, que se move em relação a A, os eventos ocorrem separados por Δt_B = 5 s. Qual a distância espacial Δx_B entre os eventos em B? (Considere c = 3×10⁸ m/s).",
+        options: [
+          { text: "9×10⁸ m", misconception: null },
+          { text: "12×10⁸ m", misconception: "classical_space_addition" },
+          { text: "15×10⁸ m", misconception: "incorrect_spacetime_math" },
+          { text: "0 m", misconception: "absolute_space_misconception" },
+        ],
+        correct: 0,
+        explanation:
+          "Pela invariância do intervalo: $\\Delta s^2 = (c\\Delta t_A)^2 - \\Delta x_A^2 = (c\\Delta t_B)^2 - \\Delta x_B^2$. Substituindo: $(c \\times 4)^2 - 0 = (c \\times 5)^2 - \\Delta x_B^2 \\Rightarrow 16c^2 = 25c^2 - \\Delta x_B^2 \\Rightarrow \\Delta x_B^2 = 9c^2 \\Rightarrow \\Delta x_B = 3c = 9\\times10^8\\text{ m}$.",
+      },
+      {
+        q: "Um intervalo de espaço-tempo com Δs² > 0 (intervalo do tipo tempo) possui qual significado causal?",
+        options: [
+          { text: "É possível existir uma relação de causa e efeito física entre os eventos", misconception: null },
+          { text: "Os eventos são tão distantes que nenhuma informação pôde ligá-los", misconception: "spacelike_misconception" },
+          { text: "Os eventos ocorrem no mesmo instante de tempo para todos", misconception: "absolute_simultaneity_misconception" },
+          { text: "A velocidade necessária para viajar entre os eventos é maior que c", misconception: "tachyon_misconception" },
+        ],
+        correct: 0,
+        explanation:
+          "Um intervalo do tipo tempo ($\\Delta s^2 > 0$) significa que a separação temporal é maior que a espacial. Assim, uma partícula ou sinal viajando abaixo da velocidade da luz pode ir de um evento a outro, permitindo relação de causa e efeito.",
+      },
+      {
+        q: "Se dois eventos possuem um intervalo do tipo espaço (Δs² < 0), o que se pode afirmar sobre a ordem temporal deles em diferentes referenciais?",
+        options: [
+          { text: "Diferentes observadores inerciais podem discordar sobre qual evento ocorreu primeiro", misconception: null },
+          { text: "Todos os observadores concordarão sobre a ordem cronológica deles", misconception: "causal_preservation_misconception" },
+          { text: "Os eventos são obrigatoriamente simultâneos para todos", misconception: "absolute_simultaneity_misconception" },
+          { text: "Eles ocorrem necessariamente no mesmo local físico", misconception: "timelike_misconception" },
+        ],
+        correct: 0,
+        explanation:
+          "Eventos do tipo espaço ($\\Delta s^2 < 0$) são causalmente desconectados. Como nenhuma informação pode ligar os dois eventos (pois exigiria velocidade maior que $c$), a ordem temporal deles depende do referencial do observador.",
+      },
+    ],
+  },
+  {
+    id: 8,
+    sym: "p",
+    title: "Momento Relativístico",
+    full: "Momento linear relativístico",
+    desc: "Generalização do momento clássico para garantir a conservação do momento em colisões de altas velocidades: p = γ · m · v.",
+    prereqs: [5],
+    problems: [
+      {
+        q: "Um elétron de massa m viaja com velocidade v = 0,8c (γ = 5/3 ≈ 1,67). Qual é o módulo do seu momento linear relativístico p?",
+        options: [
+          { text: "1,33 mc", misconception: null },
+          { text: "0,80 mc", misconception: "classical_momentum" },
+          { text: "1,67 mc", misconception: "only_gamma_momentum" },
+          { text: "2,08 mc", misconception: "incorrect_gamma_multiplication" },
+        ],
+        correct: 0,
+        explanation:
+          "Usando a fórmula do momento relativístico: $p = \\gamma m v$. Substituindo os valores: $p = 1,67 \\times m \\times 0,8c = 1,333 mc$.",
+      },
+      {
+        q: "Por que o momento relativístico p = γmv é usado em vez do clássico p = mv na física de altas energias?",
+        options: [
+          { text: "Porque a fórmula clássica violaria a lei de conservação do momento em colisões rápidas", misconception: null },
+          { text: "Porque a massa de repouso das partículas aumenta com a velocidade", misconception: "relativistic_mass_misconception" },
+          { text: "Porque o momento clássico cai para zero à medida que v se aproxima de c", misconception: "classical_momentum_zero" },
+          { text: "Porque a física clássica só se aplica a objetos macroscópicos em repouso", misconception: "scale_misconception" },
+        ],
+        correct: 0,
+        explanation:
+          "Se usássemos a definição clássica $p=mv$ em colisões de alta velocidade, a lei fundamental da conservação do momento não seria invariante de Lorentz, ou seja, falharia para observadores em movimento.",
+      },
+      {
+        q: "Qual a relação fundamental que une a Energia total E, o Momento relativístico p e a Massa de repouso m de uma partícula?",
+        options: [
+          { text: "E² = (pc)² + (mc²)²", misconception: null },
+          { text: "E = pc + mc²", misconception: "linear_energy_addition" },
+          { text: "E = γ(pc + mc²)", misconception: "redundant_gamma_energy" },
+          { text: "E² = pc² + mc²", misconception: "dimensionally_incorrect_energy" },
+        ],
+        correct: 0,
+        explanation:
+          "A equação de energia e momento relativística é $E^2 = (pc)^2 + (mc^2)^2$. Para partículas sem massa (como o fóton), ela reduz-se a $E=pc$.",
+      },
+    ],
+  },
+  {
     id: 4,
     sym: "E",
     title: "Energia e E = mc²",
     full: "Equivalência massa-energia",
     desc: "Energia de repouso dada por E₀ = mc² e energia total por E = γmc². Corpos com massa necessitam de energia infinita para atingir c.",
-    prereqs: [3],
+    prereqs: [8],
     problems: [
       {
         q: "Qual é a energia de repouso contida em 1 g (0,001 kg) de matéria? Considere c = 3×10⁸ m/s.",

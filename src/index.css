@@ -166,7 +166,7 @@ body {
 
 .app-body {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 360px;
   gap: 0;
   flex: 1;
   min-height: 0;
@@ -646,6 +646,43 @@ body {
   overflow-y: auto;
 }
 
+.right-panel-tabs {
+  display: flex;
+  background: var(--gray-100);
+  border: 1px solid var(--border);
+  padding: 3px;
+  border-radius: var(--radius);
+  margin-bottom: 4px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.panel-tab-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: calc(var(--radius) - 4px);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.panel-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.panel-tab-btn.tab-active {
+  background: var(--bg-primary);
+  color: var(--purple-600);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
 .section-label {
   font-size: 10px;
   font-weight: 600;
@@ -658,11 +695,11 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14pvar(--bg-primary);
+  padding: 14px;
+  background: var(--bg-primary);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   transition: background-color 0.3s, border-color 0.3s;
-  border-radius: var(--radius-lg);
 }
 
 .overall-title {
@@ -679,6 +716,7 @@ body {
 .dag-list {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 .dag-node {
   display: flex;
@@ -805,39 +843,45 @@ body {
   gap: 6px;
 }
 .formula-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   background: var(--bg-primary);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   transition: background-color 0.3s, border-color 0.3s;
+}
+.formula-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .formula-sym {
   font-family: Georgia, serif;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--purple-600);
-  width: 22px;
-  text-align: center;
-  flex-shrink: 0;
-}
-.formula-info {
-  min-width: 0;
-}
-.formula-label {
-  font-size: 10px;
-  color: var(--text-tertiary);
-  margin-bottom: 1px;
-}
-.formula-eq {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  color: var(--purple-800);
   background: var(--purple-50);
   padding: 2px 6px;
   border-radius: 4px;
-  display: inline-block;
+  flex-shrink: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+.formula-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.formula-body {
+  font-size: 12px;
+  color: var(--text-primary);
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  border-radius: 6px;
+  overflow-x: auto;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .rules-card {

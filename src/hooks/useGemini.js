@@ -92,7 +92,55 @@ export function buildTutorPrompt(concept, problem, misconception) {
   if (misconception) {
     if (misconception === "classical_velocity_addition") {
       extraRules =
-        "\n- ATENÇÃO: O aluno errou ao somar velocidades de forma linear (v + c). Explique de forma didática que a velocidade da luz é invariante e que as velocidades não se somam de forma clássica (Galileana) na relatividade. Introduza a ideia da soma relativística de forma conceitual.";
+        "\n- ATENÇÃO: O aluno errou ao somar velocidades de forma linear/clássica (v + u'). Explique de forma didática que a velocidade da luz é o limite universal e que as velocidades se somam de forma relativística usando a fórmula $u = (v + u') / (1 + vu'/c²)$.";
+    } else if (misconception === "no_velocity_addition") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno desconsiderou totalmente a velocidade de uma das partes. Explique que na relatividade devemos combinar as velocidades relativísticas da fonte e do projétil/sonda/nave.";
+    } else if (misconception === "incorrect_math_addition") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno errou nas contas ou na aplicação da fórmula de adição relativística de velocidades.";
+    } else if (misconception === "light_speed_limit_incorrect") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno errou ao achar que duas naves massivas podem se aproximar exatamente na velocidade da luz ou superior. Lembre-o de que a velocidade de aproximação mútua de corpos massivos é sempre estritamente menor que c.";
+    } else if (misconception === "classical_doppler_subtraction" || misconception === "classical_doppler_approximation") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno tentou aplicar a fórmula clássica do Efeito Doppler. Destaque que a luz se comporta de forma relativística e que o efeito Doppler luminoso precisa considerar a dilatação temporal de Lorentz, gerando a fórmula $f_{obs} = f_0 \\sqrt{(1 - v/c)/(1 + v/c)}$ para afastamento.";
+    } else if (misconception === "doppler_blueshift_confusion" || misconception === "doppler_redshift_formula") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno confundiu desvio para o vermelho (redshift, frequência observada menor decorrente de afastamento) com desvio para o azul (blueshift, frequência observada maior decorrente de aproximação).";
+    } else if (misconception === "only_lorentz_time_dilation" || misconception === "only_lorentz_factor") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno considerou apenas o fator gama de dilatação temporal de Lorentz, esquecendo o efeito Doppler clássico de propagação da onda no espaço.";
+    } else if (misconception === "tired_light_hypothesis") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno mencionou a teoria obsoleta da 'luz cansada' (perda de energia por poeira). Explique que o redshift cosmológico decorre da própria expansão do tecido do espaço-tempo.";
+    } else if (misconception === "time_dilation_misinterpretation") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno interpretou de forma errada o efeito da dilatação temporal cósmica no redshift.";
+    } else if (misconception === "classical_space_addition" || misconception === "absolute_space_misconception") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno raciocinou usando espaço absoluto ou soma clássica de coordenadas. Relembre que o espaço e o tempo mudam entre referenciais, mas o intervalo de espaço-tempo $\\Delta s^2 = (c\\Delta t)^2 - \\Delta x^2$ permanece rigorosamente invariante.";
+    } else if (misconception === "incorrect_spacetime_math") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno errou na manipulação matemática ou nos sinais da fórmula do intervalo quadridimensional $\\Delta s^2 = (c\\Delta t)^2 - \\Delta x^2$.";
+    } else if (misconception === "spacelike_misconception" || misconception === "timelike_misconception" || misconception === "tachyon_misconception") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno confundiu a definição ou o significado de intervalos do tipo espaço ($\\Delta s^2 < 0$, causalmente desconectados, ordem temporal mutável) e tipo tempo ($\\Delta s^2 > 0$, causalmente conectáveis, ordem temporal absoluta).";
+    } else if (misconception === "causal_preservation_misconception" || misconception === "absolute_simultaneity_misconception") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno acredita erroneamente na simultaneidade absoluta ou que todos os observadores concordam com a ordem temporal de eventos separados por intervalos do tipo espaço.";
+    } else if (misconception === "classical_momentum") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno tentou usar a equação clássica de momento linear $p = mv$. Explique que para velocidades próximas à da luz, devemos incluir o fator de Lorentz, resultando em $p = \\gamma m v$.";
+    } else if (misconception === "only_gamma_momentum") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno errou ao considerar apenas o fator $\\gamma$ no momento linear relativístico, esquecendo de multiplicar pelo momento mecânico próprio.";
+    } else if (misconception === "relativistic_mass_misconception") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno usou o conceito defasado de que a 'massa aumenta com a velocidade'. Explique que a massa de repouso $m$ é uma propriedade intrínseca invariante da partícula e que o fator de Lorentz $\\gamma$ modifica a relação de momento e energia, não a massa em si.";
+    } else if (misconception === "linear_energy_addition" || misconception === "redundant_gamma_energy" || misconception === "dimensionally_incorrect_energy") {
+      extraRules =
+        "\n- ATENÇÃO: O aluno errou ao expressar ou manipular a relação entre Energia total $E$, Momento relativístico $p$ e Massa de repouso $m$. A relação correta é a hipérbole $E^2 = (pc)^2 + (mc^2)^2$.";
     } else if (misconception === "accelerated_reference") {
       extraRules =
         "\n- ATENÇÃO: O aluno errou ao considerar referenciais acelerados como inerciais. Explique de forma simples que referenciais inerciais são apenas aqueles que estão em repouso ou em movimento retilíneo uniforme (velocidade constante, sem aceleração).";
